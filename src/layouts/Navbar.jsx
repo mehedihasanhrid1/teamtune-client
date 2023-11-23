@@ -36,7 +36,7 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
   );
 
   return (
-    <section className="shadow-md">
+    <section className="shadow-md dark:bg-gray-900">
       <div className="px-4 md:px-5">
         <nav className="flex items-center justify-between py-4">
           <Link
