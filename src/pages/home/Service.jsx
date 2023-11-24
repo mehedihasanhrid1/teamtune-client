@@ -10,7 +10,7 @@ const Service = () => {
               <span className="mb-3 block text-2xl lg:text-3xl font-semibold text-blue-600">
                 Our Services
               </span>
-              <h2 className="mb-3 text-3xl font-bold leading-[1.2] text-dark dark:text-white sm:text-4xl md:text-[40px]">
+              <h2 className="mb-3 text-3xl font-bold leading-[1.2] text-gray-800 dark:text-gray-100 md:text-[40px]">
                 What We Offer
               </h2>
               <p className="px-4 dark:text-gray-400 text-gray-500">
