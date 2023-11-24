@@ -91,7 +91,7 @@ const ServiceCard = ({ icon, title, details }) => {
   return (
     <>
       <div className="w-full px-5 md:w-1/2 lg:w-1/3">
-        <div className="mb-9 h-[24rem] lg:h-[26rem] xl:h-[23rem] rounded-[20px] p-10 shadow-2 hover:shadow-lg dark:bg-gray-700 bg-gray-50 md:px-7 xl:px-10">
+        <div className="mb-9 h-[24rem] lg:h-[26rem] xl:h-[23rem] rounded-[20px] p-10 shadow-2 hover:shadow-lg dark:bg-gray-800 bg-gray-50 md:px-7 xl:px-10">
           <div className="flex items-center justify-center">
           <div className="mb-8 flex h-[70px] w-[70px] items-center justify-center rounded-2xl bg-blue-600">
             {icon}
