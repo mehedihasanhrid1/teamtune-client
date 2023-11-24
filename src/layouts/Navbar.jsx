@@ -73,13 +73,13 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
             {isDarkMode ? <IoSunnySharp /> :<BsFillMoonFill/> }
             </button>
             <div className="hidden lg:block">
-              <Link
-                to="/login"
-                className="inline-block px-6 py-3 mr-2 text-lg font-medium leading-none text-gray-100 bg-blue-600 rounded-full dark:hover:bg-blue-500 hover:bg-blue-700"
-              >
-                Login
-              </Link>
-            </div>
+                    <Link to="/login"
+                        className="inline-block px-5 py-3 mr-4  font-semibold leading-none text-blue-600 border border-blue-500 rounded hover:text-blue-700 hover:border-blue-400">Log
+                        In</Link>
+                    <Link to="/register"
+                        className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700">Register
+                    </Link>
+                </div>
           </div>
         </nav>
         {/* Mobile Sidebar */}
@@ -126,10 +126,19 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
           </ul>
           <div className="block mt-5 lg:hidden px-5">
             <Link
-              to="/login"
-              className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-blue-600 rounded-full dark:hover:bg-blue-400 dark:bg-blue-300 dark:text-gray-700 hover:bg-blue-700"
+              to="/login">
+              <button className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-blue-600 rounded-full hover:bg-blue-700"
             >
               Login
+              </button>
+            </Link>
+          </div>
+          <div className="block mt-3 lg:hidden px-5">
+            <Link
+              to="/register">
+                <button className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center border border-blue-700 rounded-full hover:text-white hover:bg-blue-700">
+              Register
+              </button>
             </Link>
           </div>
         </div>
