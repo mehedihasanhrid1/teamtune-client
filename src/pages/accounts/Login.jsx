@@ -4,19 +4,20 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
   return (
-    <section className="flex flex-wrap items-center justify-center">
+    <section className="flex flex-wrap items-center justify-center" style={{ backgroundImage: 'url("https://i.ibb.co/V9DmTjm/login.jpg")', backgroundSize: 'cover' }}
+    >
       <div className="max-w-6xl mx-auto">
-        <div className="px-5 py-7 lg:py-12">
-          <div className="max-w-xl lg:p-12 shadow-md rounded-md p-6 mx-auto text-center bg-[#dbeafe6e] dark:bg-gray-800">
-            <h2 className="mb-4 text-3xl font-bold text-gray-700 lg:mb-7 lg:text-5xl dark:text-gray-300">
+        <div className="px-5 py-8 md:py-12 lg:py-14">
+          <div className="max-w-xl lg:p-12 shadow-md rounded-md p-6 mx-auto text-center bg-[#dbeafe6e] dark:bg-[#1118276e]">
+            <h2 className="mb-4 text-3xl font-bold text-gray-700 lg:mb-7 lg:text-5xl dark:text-gray-100">
               Login your account
             </h2>
-            <p className="text-gray-500 text-lg dark:text-gray-400 mb-7">Welcome Back!</p>
+            <p className="text-lg text-gray-600 font-medium dark:text-gray-200 mb-7">Welcome Back!</p>
             <form action="">
               <div className="mb-4 lg:mb-7">
                 <input
                   type="email"
-                  className="w-full px-4 py-4 bg-white rounded-lg lg:py-5 dark:text-gray-300 dark:bg-gray-700"
+                  className="w-full px-4 py-4 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-300 rounded-lg lg:py-5 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name=""
                   placeholder="Enter your email"
                 />
@@ -25,7 +26,7 @@ const Login = () => {
                 <div className="relative flex items-center">
                   <input
                     type={showPassword? 'text' : 'password'}
-                    className="w-full px-4 py-4 bg-white rounded-lg lg:py-5 dark:text-gray-300 dark:bg-gray-700"
+                    className="w-full px-4 py-4 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-300 rounded-lg lg:py-5 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                     name=""
                     placeholder="Enter password"
                   />
@@ -45,13 +46,13 @@ const Login = () => {
                 </div>
               </div>
               <div className="flex items-center justify-between mb-4 lg:mb-7">
-                <label className="flex dark:text-gray-300">
+                <label className="flex text-gray-800 dark:text-gray-300">
                   <input type="checkbox" className="mr-2" />
-                  <span className="text-sm">Remember me</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">Remember me</span>
                 </label>
                 <a
                   href="#"
-                  className="text-sm font-semibold text-blue-400 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
+                  className="text-sm font-semibold text-blue-700 hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-400"
                 >
                   Forgot password?
                 </a>
@@ -64,9 +65,9 @@ const Login = () => {
               </button>
               <div className="my-3 lg:my-6">
               <div className="flex items-center gap-1">
-                  <hr className="h-[1.5px] bg-gray-400 border-none w-full" />
-                  <p className="md:text-lg">OR</p>
-                  <hr className="h-[1.5px] bg-gray-400 border-none w-full" />
+                  <hr className="h-[1.5px] bg-gray-500 dark:bg-gray-400 border-none w-full" />
+                  <p className="md:text-lg text-gray-600 dark:text-gray-200">OR</p>
+                  <hr className="h-[1.5px] bg-gray-500 dark:bg-gray-400 border-none w-full" />
                 </div>
               </div>
               <div className="flex flex-wrap">
@@ -126,11 +127,11 @@ const Login = () => {
                   </a>
                 </div>
               </div>
-              <p className="px-2 mt-6 text-sm text-left text-gray-700 dark:text-gray-400">
+              <p className="px-2 mt-6 text-sm md:text-base text-left text-gray-800 dark:text-gray-400">
                 If you don't have an account?
                 <Link
                   to="/register"
-                  className="ml-2 text-base font-semibold text-blue-500 hover:text-blue-600 dark:text-blue-600 dark:hover:text-blue-500"
+                  className="ml-2 text-base font-semibold text-blue-700 hover:text-blue-600 dark:text-blue-300 dark:hover:text-blue-400"
                 >
                   Create new account
                 </Link>
