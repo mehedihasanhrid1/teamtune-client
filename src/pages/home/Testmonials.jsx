@@ -12,7 +12,7 @@ const Testimonials = () => {
     Welcome to Team Tune's testimonial section, where our users share their experiences. Discover how Team Tune has transformed their employee management, fostering collaboration and efficiency. Join our community and elevate your workplace experience.
   </p>
         </div>
-        <div className="flex">
+        <div className="flex mt-4 lg:mt-8">
           <div className="grid grid-cols-1 gap-4 lg:gap-6 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {/* Testimonial 1 */}
             <div className="mb-8 text-center bg-white rounded shadow dark:bg-gray-700">

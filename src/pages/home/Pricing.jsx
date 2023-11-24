@@ -6,7 +6,7 @@ const Pricing = () => {
             <section className="flex items-center lg:pt-8">
         <div className="justify-center flex-1 max-w-6xl px-4 py-4 mx-auto lg:py-0 md:px-6">
             <h2 className="mb-4 text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100 text-center">Best Pricing Plan for your Organization</h2>
-            <p className="mb-4 px-2 text-lg font-medium text-gray-500 md:text-xl dark:text-gray-400 text-center">
+            <p className="mb-4 lg:mb-6 px-2 text-lg font-medium text-gray-500 md:text-xl dark:text-gray-400 text-center">
                 Choose Pricing that scales with your business immediately</p>
             <div className="flex flex-wrap justify-center pt-4">
                 <div className="w-full px-3 mb-6 md:w-1/2 lg:w-1/3">
@@ -118,7 +118,7 @@ const Pricing = () => {
                                 <span>Priority Customer Support</span>
                             </li>
                         </ul>
-                        <a href="#" className="inline-block w-full py-4 mb-4 font-medium text-center bg-green-600 rounded-md text-gray-100 hover:bg-green-500 dark:bg-blue-700 dark:hover:bg-blue-800">
+                        <a href="#" className="inline-block w-full py-4 mb-4 font-medium text-center bg-green-500 rounded-md text-gray-100 hover:bg-green-600 dark:bg-blue-700 dark:hover:bg-blue-800">
                             Get Started</a>
                         <a href="#" className="inline-block w-full py-4 mb-4 font-medium text-center text-gray-700 bg-white rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-900">
                             Learn More</a>

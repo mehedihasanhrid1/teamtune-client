@@ -4,7 +4,7 @@ const Service = () => {
   return (
     <section className="pt-8 md:pt-12 lg:pt-14">
       <div className="container mx-auto">
-        <div className="flex flex-wrap mb-3">
+        <div className="flex flex-wrap mb-2 lg:mb-0">
           <div className="w-full px-4">
             <div className="mx-auto mb-6 lg:mb-12 max-w-[510px] text-center">
               <span className="mb-3 block text-2xl lg:text-3xl font-semibold text-blue-600">
@@ -19,7 +19,6 @@ const Service = () => {
             </div>
           </div>
         </div>
-
         <div className="flex flex-wrap">
           <ServiceCard
             title="Effortless Payroll Management"
