@@ -5,6 +5,9 @@ import Errorpage from "../components/Errorpage";
 import Login from "../pages/accounts/Login";
 import Contactus from "../pages/about/Contactus";
 import Register from "../pages/accounts/Register";
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const routers = createBrowserRouter(
     [

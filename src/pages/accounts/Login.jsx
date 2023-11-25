@@ -1,26 +1,48 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const [loginError, setLoginError] = useState(null);
-  const { signIn , googleLogin } = useAuth();
+  const { signIn, googleLogin , logOut } = useAuth();
 
   useEffect(() => {
-    document.title = 'Sign In to Your Account - Team Tune';
+    document.title = "Sign In to Your Account - Team Tune";
   }, []);
+
+  const getFiredData = async (email) => {
+    try {
+      return response.data.email;
+    } catch (error) {
+      console.error("Error fetching email data", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
     try {
-      await signIn(email, password);
-      navigate(location?.state ? location?.state : "/");
+      const firedUser = await axios.get(
+        `http://localhost:5000/fireduser/${email}`
+      );
+      if (firedUser.data?.email) {
+        Swal.fire({
+          icon: "error",
+          title: "You are Fired",
+          text: "You can't login now.",
+        });
+      } else {
+        await signIn(email, password);
+        navigate(location?.state ? location?.state : "/");
+      }
     } catch (error) {
       setLoginError("Invalid email or password");
       console.error("Sign-in failed:", error.message);
@@ -29,8 +51,21 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      await googleLogin();
-      navigate(location?.state ? location?.state : "/");
+      const response = await googleLogin();
+      const email = response.user?.email;
+      const firedUser = await axios.get(
+        `http://localhost:5000/fireduser/${email}`
+      );
+      if (firedUser.data?.email) {
+        logOut();
+        Swal.fire({
+          icon: "error",
+          title: "You are Fired",
+          text: "You can't login now.",
+        });
+      }else{
+        navigate(location?.state ? location?.state : "/");
+      }
     } catch (error) {
       setLoginError("Failed to sign in with Google");
       console.error(error.message);
@@ -97,23 +132,23 @@ const Login = () => {
                 </label>
                 <a
                   href="#"
-                  className="text-sm lg:text-base font-semibold text-blue-gray-800 hover:text-blue-gray-700 dark:text-blue-300 dark:hover:text-blue-400"
+                  className="text-sm lg:text-base font-semibold text-blue-gray-900 hover:text-blue-gray-800 dark:text-blue-300 dark:hover:text-blue-400"
                 >
                   Forgot password?
                 </a>
               </div>
               {loginError && (
-                  <div className="flex justify-start mb-3 md:text-lg font-medium">
-                    <ul>
-                      <li className="flex items-center py-1 gap-2 text-red-600 dark:text-red-500">
-                        <span className="text-xl">
-                          <FaTimes />
-                        </span>
-                        <span>{loginError}</span>
-                      </li>
-                    </ul>
-                  </div>
-                 )}
+                <div className="flex justify-start mb-3 md:text-lg font-medium">
+                  <ul>
+                    <li className="flex items-center py-1 gap-2 text-red-600 dark:text-red-500">
+                      <span className="text-xl">
+                        <FaTimes />
+                      </span>
+                      <span>{loginError}</span>
+                    </li>
+                  </ul>
+                </div>
+              )}
               <button
                 className="w-full px-4 py-3 text-sm font-bold text-gray-100 uppercase bg-blue-600 rounded-md lg:text-lg dark:text-gray-300 dark:bg-blue-800 hover:bg-blue-700 dark:hover:bg-blue-900"
                 type="submit"
@@ -131,9 +166,7 @@ const Login = () => {
               </div>
               <div className="flex flex-wrap">
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
-                  <div
-                    className="flex items-center justify-center p-3 bg-blue-800 rounded-md hover:bg-blue-600 dark:hover:bg-gray-800 cursor-pointer"
-                  >
+                  <div className="flex items-center justify-center p-3 bg-blue-800 rounded-md hover:bg-blue-600 dark:hover:bg-gray-800 cursor-pointer">
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-400">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +185,8 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
-                  <div onClick={handleGoogleLogin}
+                  <div
+                    onClick={handleGoogleLogin}
                     className="flex items-center justify-center p-3 bg-red-700 rounded-md dark:bg-red-700 hover:bg-red-500 dark:hover:bg-gray-800 cursor-pointer"
                   >
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-400">
@@ -173,9 +207,7 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
-                  <div
-                    className="flex items-center justify-center p-3 bg-gray-800 rounded-md dark:bg-gray-500 hover:bg-gray-700 dark:hover:bg-gray-600 cursor-pointer"
-                  >
+                  <div className="flex items-center justify-center p-3 bg-gray-800 rounded-md dark:bg-gray-500 hover:bg-gray-700 dark:hover:bg-gray-600 cursor-pointer">
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-200">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +231,7 @@ const Login = () => {
                 If you don't have an account?
                 <Link
                   to="/register"
-                  className="ml-2 text-base font-semibold text-blue-gray-800 hover:text-blue-gray-700 dark:text-blue-300 dark:hover:text-blue-400"
+                  className="ml-2 text-base font-semibold text-blue-gray-900 hover:text-blue-gray-800 dark:text-blue-300 dark:hover:text-blue-400"
                 >
                   Create new account
                 </Link>

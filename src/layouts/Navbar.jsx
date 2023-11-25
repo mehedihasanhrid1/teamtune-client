@@ -53,7 +53,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
     <section className="shadow-md dark:bg-gray-900">
       <div className="px-4 md:px-5">
         <nav className="flex items-center justify-between py-4">
-          <Link to="/" className="text-3xl font-semibold leading-none">
+          <Link to="/" className="text-[26px] md:text-3xl font-semibold leading-none">
             Team<span className="text-blue-700">Tune</span>
           </Link>
           <div className="flex justify-between items-center flex-row-reverse lg:flex-row lg:space-x-3">
