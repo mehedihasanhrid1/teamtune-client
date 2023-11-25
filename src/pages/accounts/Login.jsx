@@ -43,6 +43,12 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
+      Swal.fire({
+        icon: "success",
+        title: "User created successfully.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       // const response = await googleLogin();
       // const email = response.user?.email;
       // const firedUser = await axios.get(
@@ -83,7 +89,7 @@ const Login = () => {
             </p>
             <form onSubmit={handleSubmit}>
               <div className="mb-4 lg:mb-5">
-              <label htmlFor="email" className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
+              <label className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
               Email
             </label>
                 <input
@@ -95,7 +101,7 @@ const Login = () => {
                 />
               </div>
               <div className="mb-5 lg:mb-6">
-              <label htmlFor="password" className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
+              <label className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
               Password
             </label>
                 <div className="relative flex items-center">

@@ -4,12 +4,22 @@ import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 
 const Register = () => {
-  const { createUser, updateUser , logOut } = useAuth();
+  const { createUser, updateUser, logOut , googleLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState(null);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
+
   useEffect(() => {
     document.title = "Start Your Journey with Us: Sign Up";
   }, []);
@@ -44,56 +54,108 @@ const Register = () => {
     formData.append("key", import.meta.env.VITE_IMGBBAPI);
     formData.append("image", photo);
 
-    fetch('https://api.imgbb.com/1/upload', {
-      method: 'POST',
+    fetch("https://api.imgbb.com/1/upload", {
+      method: "POST",
       body: formData,
-    }).then((res) => res.json())
+    })
+      .then((res) => res.json())
       .then((data) => {
         const photoURL = data.data.display_url;
 
-        createUser(email,password)
-        .then((result) => {
-            const user = result.user;
+        createUser(email, password).then((result) => {
+          const user = result.user;
 
-            updateUser(user,name,photoURL)
-                .then(() => {
+          updateUser(user, name, photoURL)
+            .then(() => {
+              const userData = {
+                name: name,
+                role: role,
+                email: email,
+                photo: photoURL,
+                bank_acc: bankacc,
+                salary: salary,
+                designation: designation,
+                verify: false,
+                acc_status: "active",
+                fired: false,
+              };
 
-                  const userData = {
-                    name: name,
-                    role: role,
-                    email: email,
-                    photo: photoURL,
-                    bank_acc: bankacc,
-                    salary: salary,
-                    designation: designation,
-                    verify: false,
-                    acc_status: "active",
-                    fired: false,
-                  };
+              logOut();
 
-                  axios.post('http://localhost:5000/users', userData)
-                            .then(res => {
-                                if (res.data.insertedId) {
-                                    logOut();
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: 'User created successfully.',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    navigate('/login');
-                                }
-                            })
-
-                })
-                .catch(error => console.log(error))
-        })       
+              axios
+                .post("http://localhost:5000/users", userData)
+                .then((res) => {
+                  if (res.data.insertedId) {
+                    Swal.fire({
+                      icon: "success",
+                      title: "User created successfully.",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                  }
+                });
+              
+              navigate("/login");
+              
+            })
+            .catch((error) => console.log(error));
+        });
       })
-      .catch((error) => console.error('Error uploading image:', error));
+      .catch((error) => console.error("Error uploading image:", error));
   };
 
-  const handleGoogleSignup = async () => {};
+  const handleGoogleSignup = async (e) => {
+    e.preventDefault();
+    const bankacc = e.target.bankaccount.value;
+    const salary = e.target.salary.value;
+    const role = e.target.role.value;
+    const designation = e.target.designation.value;
+  
+    try {
+      const response = await googleLogin();
+  
+      const name = response.user?.displayName;
+      const email = response.user?.email;
+      const photoURL = response.user?.photoURL;
+  
+      const userData = {
+        name: name,
+        role: role,
+        email: email,
+        photo: photoURL,
+        bank_acc: bankacc,
+        salary: salary,
+        designation: designation,
+        verify: false,
+        acc_status: "active",
+        fired: false,
+      };
+
+      setOpen(false);
+      logOut();
+  
+      axios.post("http://localhost:5000/users", userData)
+        .then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              icon: "success",
+              title: "User created successfully.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      navigate("/login");
+
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  
 
   return (
     <section
@@ -114,8 +176,7 @@ const Register = () => {
             </p>
             <form onSubmit={handleSubmit}>
               <div className="mb-4 lg:mb-5">
-                <label
-                  htmlFor="name"
+                <label htmlFor="name"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Name
@@ -124,13 +185,13 @@ const Register = () => {
                   type="text"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="name"
+                  id="name"
                   placeholder="Your Name"
                   required
                 />
               </div>
               <div className="mb-4 lg:mb-5">
-                <label
-                  htmlFor="bankacc"
+                <label htmlFor="bankaccount"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Bank AC
@@ -139,13 +200,13 @@ const Register = () => {
                   type="text"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="bankaccount"
+                  id="bankaccount"
                   placeholder="Bank Account Number"
                   required
                 />
               </div>
               <div className="mb-4 lg:mb-5">
-                <label
-                  htmlFor="salary"
+                <label htmlFor="salary"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Salary
@@ -154,34 +215,34 @@ const Register = () => {
                   type="text"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="salary"
+                  id="salary"
                   placeholder="Your Monthly Salary"
                   required
                 />
               </div>
               <div className="mb-4 lg:mb-5">
-          <label
-            htmlFor="role"
-            className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
-          >
-            Role
-          </label>
-          <select
-            className="w-full cursor-pointer px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
-            name="role"
-            required
-          >
-            <option value="user">Employee</option>
-            <option value="HR" disabled>
-              HR (Read-only)
-            </option>
-            <option value="Admin" disabled>
-              Admin (Read-only)
-            </option>
-          </select>
-        </div>
+                <label htmlFor="role"
+                  className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
+                >
+                  Role
+                </label>
+                <select
+                  className="w-full cursor-pointer px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
+                  name="role"
+                  id="role"
+                  required
+                >
+                  <option value="user">Employee</option>
+                  <option value="HR" disabled>
+                    HR (Read-only)
+                  </option>
+                  <option value="Admin" disabled>
+                    Admin (Read-only)
+                  </option>
+                </select>
+              </div>
               <div className="mb-4 lg:mb-5">
-                <label
-                  htmlFor="email"
+                <label htmlFor="designation"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Designation
@@ -190,13 +251,13 @@ const Register = () => {
                   type="text"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="designation"
+                  id="designation"
                   placeholder="Employee Designation"
                   required
                 />
               </div>
               <div className="mb-4 lg:mb-5">
-                <label
-                  htmlFor="email"
+                <label htmlFor="email"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Email
@@ -205,13 +266,13 @@ const Register = () => {
                   type="email"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="email"
+                  id="email"
                   placeholder="Enter your email"
                   required
                 />
               </div>
               <div className="mb-4 lg:mb-5">
-                <label
-                  htmlFor="password"
+                <label htmlFor="password"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Password
@@ -221,6 +282,7 @@ const Register = () => {
                     type={showPassword ? "text" : "password"}
                     className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                     name="password"
+                    id="password"
                     placeholder="Enter password"
                     required
                   />
@@ -240,8 +302,7 @@ const Register = () => {
                 </div>
               </div>
               <div className="mb-6">
-                <label
-                  htmlFor="photo"
+                <label htmlFor="photo"
                   className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
                 >
                   Photo
@@ -249,6 +310,7 @@ const Register = () => {
                 <input
                   type="file"
                   name="photo"
+                  id="photo"
                   accept="image/*"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   required
@@ -305,7 +367,7 @@ const Register = () => {
                 </div>
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
                   <div
-                    onClick={handleGoogleSignup}
+                    onClick={() => setOpen(true)}
                     className="flex items-center justify-center p-3 bg-red-700 rounded-md dark:bg-red-700 hover:bg-red-500 dark:hover:bg-gray-800 cursor-pointer"
                   >
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-400">
@@ -359,6 +421,95 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <Dialog open={open} handler={handleOpen}>
+        <div className="flex flex-col items-center justify-center my-2">
+          <DialogHeader>Google Sign Up</DialogHeader>
+          <p className="px-5 text-center">Some more information need for complete signup!</p>
+        </div>
+          <form className="px-5 mb-3 space-y-4 md:space-y-6" onSubmit={handleGoogleSignup}>
+        <DialogBody>
+            <div>
+              <label htmlFor="bankaccount"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Bank AC
+              </label>
+              <input
+                type="text"
+                name="bankaccount"
+                id="bankaccount"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5"
+                placeholder="Bank Account Number"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="salary"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Salary
+              </label>
+              <input
+                type="text"
+                name="salary"
+                id="salary"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5"
+                placeholder="Your Monthly Salary"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="role"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Role
+              </label>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5"
+                name="role"
+                id="role"
+                required
+              >
+                <option value="user">Employee</option>
+                <option value="HR" disabled>
+                  HR (Read-only)
+                </option>
+                <option value="Admin" disabled>
+                  Admin (Read-only)
+                </option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="designation"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Designation
+              </label>
+              <input
+                type="text"
+                name="designation"
+                id="designation"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5"
+                placeholder="Employee Designation"
+              />
+            </div>
+        </DialogBody>
+        <DialogFooter className="mr-2">
+          <Button
+            color="red"
+            onClick={() => {
+              setOpen(!open);
+            }}
+            className="mr-4"
+            >
+            <span>Cancel</span>
+          </Button>
+          <Button variant="gradient" color="green" type="submit">
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+            </form>
+      </Dialog>
     </section>
   );
 };
