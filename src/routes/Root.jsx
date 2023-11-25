@@ -5,7 +5,7 @@ import Footer from '../layouts/Footer';
 
 export default function Root() {
   const location = useLocation();
-  const noShared = location.pathname.includes('login') || location.pathname.includes('signup');
+  const noShared = location.pathname.includes('login') || location.pathname.includes('register');
   const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
 
   useEffect(()=>{

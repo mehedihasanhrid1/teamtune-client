@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "./firebase.config";
 export const AuthContext = createContext(null);
@@ -17,6 +19,18 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateUser = (user, name, photo) => {
+    return updateProfile(user, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+  
   const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
@@ -25,8 +39,8 @@ const AuthProvider = ({ children }) => {
   const googleLogin = () => {
     const provider = new GoogleAuthProvider();
     setLoading(true);
-    return signInWithPopup(auth , provider);
-  }
+    return signInWithPopup(auth, provider);
+  };
 
   const logOut = () => {
     setLoading(true);
@@ -40,11 +54,9 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (user) {
         const signedUser = { email: user.email };
-        axios
-          .post("http://localhost:5000/jwt", signedUser)
-          .catch((error) => {
-            console.error("Error setting JWT_TOKEN:", error);
-          });
+        axios.post("http://localhost:5000/jwt", signedUser).catch((error) => {
+          console.error("Error setting JWT_TOKEN:", error);
+        });
       }
     });
     return () => unsubscribe();
@@ -54,6 +66,8 @@ const AuthProvider = ({ children }) => {
     auth,
     user,
     loading,
+    createUser,
+    updateUser,
     signIn,
     logOut,
     googleLogin,

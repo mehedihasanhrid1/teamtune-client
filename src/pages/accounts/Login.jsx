@@ -16,14 +16,6 @@ const Login = () => {
     document.title = "Sign In to Your Account - Team Tune";
   }, []);
 
-  const getFiredData = async (email) => {
-    try {
-      return response.data.email;
-    } catch (error) {
-      console.error("Error fetching email data", error);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -44,32 +36,32 @@ const Login = () => {
         navigate(location?.state ? location?.state : "/");
       }
     } catch (error) {
-      setLoginError("Invalid email or password");
       console.error("Sign-in failed:", error.message);
     }
+    setLoginError("Invalid email or password");
   };
 
   const handleGoogleLogin = async () => {
     try {
-      const response = await googleLogin();
-      const email = response.user?.email;
-      const firedUser = await axios.get(
-        `http://localhost:5000/fireduser/${email}`
-      );
-      if (firedUser.data?.email) {
-        logOut();
-        Swal.fire({
-          icon: "error",
-          title: "You are Fired",
-          text: "You can't login now.",
-        });
-      }else{
-        navigate(location?.state ? location?.state : "/");
-      }
+      // const response = await googleLogin();
+      // const email = response.user?.email;
+      // const firedUser = await axios.get(
+      //   `http://localhost:5000/fireduser/${email}`
+      // );
+      // if (firedUser.data?.email) {
+      //   logOut();
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "You are Fired",
+      //     text: "You can't login now.",
+      //   });
+      // }else{
+      //   navigate(location?.state ? location?.state : "/");
+      // }
     } catch (error) {
-      setLoginError("Failed to sign in with Google");
       console.error(error.message);
     }
+    setLoginError("Failed to sign in with Google");
   };
 
   return (
@@ -81,29 +73,35 @@ const Login = () => {
       }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="px-5 py-8 md:py-12 lg:py-14">
+        <div className="px-5 py-10 md:py-12 lg:py-14">
           <div className="max-w-xl lg:p-12 shadow-md rounded-lg p-6 mx-auto text-center bg-[#dbeafe55] dark:bg-[#1118276e]">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:mb-7 lg:text-5xl dark:text-gray-100">
+            <h2 className="mb-2 text-3xl font-bold text-gray-900 lg:mb-4 lg:text-5xl dark:text-gray-100">
               Login your account
             </h2>
-            <p className="text-lg text-gray-800 font-medium dark:text-gray-200 mb-7">
+            <p className="text-lg lg:text-xl text-gray-800 font-medium dark:text-gray-200 mb-4 md:mb-6">
               Welcome Back!
             </p>
             <form onSubmit={handleSubmit}>
-              <div className="mb-4 lg:mb-7">
+              <div className="mb-4 lg:mb-5">
+              <label htmlFor="email" className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
+              Email
+            </label>
                 <input
                   type="email"
-                  className="w-full px-4 py-4 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-5 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
+                  className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="email"
                   placeholder="Enter your email"
                   required
                 />
               </div>
-              <div className="mb-4 lg:mb-7">
+              <div className="mb-5 lg:mb-6">
+              <label htmlFor="password" className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
+              Password
+            </label>
                 <div className="relative flex items-center">
                   <input
                     type={showPassword ? "text" : "password"}
-                    className="w-full px-4 py-4 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-5 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
+                    className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                     name="password"
                     placeholder="Enter password"
                     required
@@ -123,9 +121,9 @@ const Login = () => {
                   </svg>
                 </div>
               </div>
-              <div className="flex items-center justify-between mb-4">
-                <label className="flex text-gray-800 dark:text-gray-300">
-                  <input type="checkbox" className="mr-2 cursor-pointer" />
+              <div className={`flex items-center justify-between ${loginError?'mb-1':'mb-4'}`}>
+                <label className="flex items-center justify-center text-gray-800 dark:text-gray-300">
+                  <input type="checkbox" className="mr-2 h-4 w-4 cursor-pointer" />
                   <span className="text-sm lg:text-base text-gray-900 dark:text-gray-200">
                     Remember me
                   </span>
@@ -138,7 +136,7 @@ const Login = () => {
                 </a>
               </div>
               {loginError && (
-                <div className="flex justify-start mb-3 md:text-lg font-medium">
+                <div className="flex justify-start lg:mt-1 mb-3 md:text-lg font-medium">
                   <ul>
                     <li className="flex items-center py-1 gap-2 text-red-600 dark:text-red-500">
                       <span className="text-xl">
