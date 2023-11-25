@@ -1,27 +1,47 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {BsFillMoonFill} from 'react-icons/bs';
+import { BsFillMoonFill } from "react-icons/bs";
 import { IoSunnySharp } from "react-icons/io5";
+import useAuth from "../hooks/useAuth";
+import {
+  Popover,
+  PopoverHandler,
+  PopoverContent,
+} from "@material-tailwind/react";
+ 
 
-const Navbar = ({isDarkMode, toggleDarkMode}) => {
+const Navbar = ({ isDarkMode, toggleDarkMode }) => {
   const [open, setOpen] = useState(false);
+  const { user, logOut } = useAuth();
 
   const navlist = (
     <>
       <NavLink
-        className={(navData) => (navData.isActive ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700" : 'hover:text-blue-600 dark:hover:text-blue-500')}
+        className={(navData) =>
+          navData.isActive
+            ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
+            : "hover:text-blue-600 dark:hover:text-blue-500"
+        }
         to="/"
       >
         Home
       </NavLink>
       <NavLink
-        className={(navData) => (navData.isActive ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700" : 'hover:text-blue-600 dark:hover:text-blue-500')}
+        className={(navData) =>
+          navData.isActive
+            ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
+            : "hover:text-blue-600 dark:hover:text-blue-500"
+        }
         to="/dashboard"
       >
         Dashboard
       </NavLink>
       <NavLink
-        className={(navData) => (navData.isActive ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700" : 'hover:text-blue-600 dark:hover:text-blue-500')}
+        className={(navData) =>
+          navData.isActive
+            ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
+            : "hover:text-blue-600 dark:hover:text-blue-500"
+        }
         to="/contactus"
       >
         Contact Us
@@ -33,13 +53,10 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
     <section className="shadow-md dark:bg-gray-900">
       <div className="px-4 md:px-5">
         <nav className="flex items-center justify-between py-4">
-          <Link
-            to='/'
-            className="text-3xl font-semibold leading-none"
-          >
+          <Link to="/" className="text-3xl font-semibold leading-none">
             Team<span className="text-blue-700">Tune</span>
           </Link>
-          <div className="flex justify-between items-center flex-row-reverse lg:flex-row lg:space-x-6">
+          <div className="flex justify-between items-center flex-row-reverse lg:flex-row lg:space-x-3">
             <div className="lg:hidden">
               <button
                 className="flex items-center px-3 py-2 text-blue-600 border border-blue-200 dark:border-gray-600 rounded dark:text-blue-400 navbar-burger hover:text-blue-800 hover:border-blue-300 lg:hidden"
@@ -60,20 +77,75 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
                 </svg>
               </button>
             </div>
-            <ul className="hidden lg:w-auto lg:space-x-9 lg:items-center lg:flex text-lg font-medium text-gray-700  dark:text-gray-100">
+            <ul className="hidden lg:w-auto lg:space-x-8 lg:items-center lg:flex text-lg font-medium text-gray-700  dark:text-gray-100">
               {navlist}
             </ul>
-            <button onClick={toggleDarkMode} className='p-2 mr-2 lg:mr-0 md:p-3 text-lg md:text-xl dark:hover:bg-gray-700 rounded-lg dark:text-gray-100 hover:bg-gray-100 text-gray-700 dark:font-bold'>
-            {isDarkMode ? <IoSunnySharp /> :<BsFillMoonFill/> }
-            </button>
-            <div className="hidden lg:block">
-                    <Link to="/login"
-                        className="inline-block px-5 py-3 mr-4  font-semibold leading-none text-blue-600 border border-blue-500 rounded hover:text-blue-700 hover:border-blue-400">Log
-                        In</Link>
-                    <Link to="/register"
-                        className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700">Register
-                    </Link>
+            <div className={`${user? 'flex gap-2 mr-3 md:mr-2 flex-row-reverse md:flex-row items-center justify-center':'block'}`}>
+              <div className="flex items-center justify-center gap-4 lg:ml-4 lg:mr-1">
+              {user ? (
+                <div className="hidden md:inline-block lg:hidden xl:inline-block">
+                  <p className="text-lg font-medium text-gray-800  dark:text-gray-100">{user.displayName}</p>
                 </div>
+              ) : (
+                ""
+              )}
+              {user && (
+                 <Popover>
+                 <PopoverHandler>
+                 <img
+                  className="cursor-pointer rounded-full h-8 w-8 md:h-9 md:w-9 lg:h-10 lg:w-10"
+                  src={user.photoURL}
+                  alt=""
+                />
+                 </PopoverHandler>
+                 <PopoverContent>
+                   <div className="lg:p-1">
+                   <button
+                  onClick={() => {
+                    logOut();
+                  }}
+                  className="inline-block lg:text-lg px-5 py-3 font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700"
+                >
+                  Log Out
+                </button>
+                   </div>
+                 </PopoverContent>
+               </Popover>
+                
+              )}
+              </div>
+              <button
+                onClick={toggleDarkMode}
+                className={`p-2 md:p-3 text-xl dark:hover:bg-gray-700 rounded-lg dark:text-gray-100 hover:bg-gray-100 text-gray-700 dark:font-bold ${user?'mr-0':'mr-2 lg:mr-0'}`}
+              >
+                {isDarkMode ? <IoSunnySharp /> : <BsFillMoonFill />}
+              </button>
+            </div>
+            <div className="hidden lg:block">
+              {user ? (
+                <button
+                  onClick={() => {
+                    logOut();
+                  }}
+                  className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700"
+                >
+                  Log Out
+                </button>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <button className="inline-block px-5 py-3 mr-4  font-semibold leading-none text-blue-600 border border-blue-500 rounded hover:text-blue-700 hover:border-blue-400">
+                      Log In
+                    </button>
+                  </Link>
+                  <Link to="/register">
+                    <button className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700">
+                      Register
+                    </button>
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </nav>
         {/* Mobile Sidebar */}
@@ -92,10 +164,7 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
           }`}
         >
           <div className="flex justify-between">
-            <Link
-              className="p-2 text-2xl font-bold"
-              to="/"
-            >
+            <Link className="p-2 text-2xl font-bold" to="/">
               Team<span className="text-blue-700">Tune</span>
             </Link>
             <button
@@ -115,26 +184,44 @@ const Navbar = ({isDarkMode, toggleDarkMode}) => {
               </svg>
             </button>
           </div>
-          <ul className="px-4 text-left mt-4 font-medium md:text-lg flex flex-col items-start gap-3" onClick={() => setOpen(false)}>
+          <ul
+            className="px-4 text-left mt-4 font-medium md:text-lg flex flex-col items-start gap-3"
+            onClick={() => setOpen(false)}
+          >
             {navlist}
           </ul>
-          <div className="block mt-5 lg:hidden px-5">
-            <Link
-              to="/login" onClick={() => setOpen(false)}>
-              <button className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-blue-600 rounded-full hover:bg-blue-700"
+          {
+              user? <><div className="block mt-5 lg:hidden px-5"><button
+              onClick={() => {
+                logOut();
+                setOpen(false);
+              }}
+              className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-blue-600 rounded-full hover:bg-blue-700"
             >
-              Login
+              Log Out
+            </button></div></> : <>
+            <div className="block mt-5 lg:hidden px-5">
+            <Link to="/login">
+              <button
+                onClick={() => setOpen(false)}
+                className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center text-gray-100 bg-blue-600 rounded-full hover:bg-blue-700"
+              >
+                Login
               </button>
             </Link>
           </div>
           <div className="block mt-3 lg:hidden px-5">
-            <Link
-              to="/register" onClick={() => setOpen(false)}>
-                <button className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center border border-blue-700 rounded-full hover:text-white hover:bg-blue-700">
-              Register
+            <Link to="/register">
+              <button
+                onClick={() => setOpen(false)}
+                className="inline-block w-full px-5 py-3 mr-2 font-semibold leading-none text-center border border-blue-700 rounded-full hover:text-white hover:bg-blue-700"
+              >
+                Register
               </button>
             </Link>
           </div>
+              </>
+            }
         </div>
       </div>
     </section>

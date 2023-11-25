@@ -1,14 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-import { AuthContext } from "../../firebase/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const [loginError, setLoginError] = useState(null);
-  const { signIn } = useContext(AuthContext);
+  const { signIn , googleLogin } = useAuth();
 
   useEffect(() => {
     document.title = 'Sign In to Your Account - Team Tune';
@@ -25,7 +25,16 @@ const Login = () => {
       setLoginError("Invalid email or password");
       console.error("Sign-in failed:", error.message);
     }
-    
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await googleLogin();
+      navigate(location?.state ? location?.state : "/");
+    } catch (error) {
+      setLoginError("Failed to sign in with Google");
+      console.error(error.message);
+    }
   };
 
   return (
@@ -122,9 +131,8 @@ const Login = () => {
               </div>
               <div className="flex flex-wrap">
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
-                  <a
-                    href="#"
-                    className="flex items-center justify-center p-3 bg-blue-800 rounded-md hover:bg-blue-600 dark:hover:bg-gray-800"
+                  <div
+                    className="flex items-center justify-center p-3 bg-blue-800 rounded-md hover:bg-blue-600 dark:hover:bg-gray-800 cursor-pointer"
                   >
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-400">
                       <svg
@@ -141,12 +149,11 @@ const Login = () => {
                     <span className="text-xs font-medium text-gray-200 uppercase lg:text-sm dark:text-gray-300">
                       Facebook
                     </span>
-                  </a>
+                  </div>
                 </div>
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
-                  <a
-                    href="#"
-                    className="flex items-center justify-center p-3 bg-red-700 rounded-md dark:bg-red-700 hover:bg-red-500 dark:hover:bg-gray-800"
+                  <div onClick={handleGoogleLogin}
+                    className="flex items-center justify-center p-3 bg-red-700 rounded-md dark:bg-red-700 hover:bg-red-500 dark:hover:bg-gray-800 cursor-pointer"
                   >
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-400">
                       <svg
@@ -163,12 +170,11 @@ const Login = () => {
                     <span className="text-xs font-medium text-gray-200 uppercase lg:text-sm dark:text-gray-300">
                       Google
                     </span>
-                  </a>
+                  </div>
                 </div>
                 <div className="w-full py-2 lg:px-2 lg:py-0 lg:w-1/3">
-                  <a
-                    href="#"
-                    className="flex items-center justify-center p-3 bg-gray-800 rounded-md dark:bg-gray-500 hover:bg-gray-700 dark:hover:bg-gray-600"
+                  <div
+                    className="flex items-center justify-center p-3 bg-gray-800 rounded-md dark:bg-gray-500 hover:bg-gray-700 dark:hover:bg-gray-600 cursor-pointer"
                   >
                     <span className="inline-block mr-2 text-gray-300 dark:text-gray-200">
                       <svg
@@ -186,7 +192,7 @@ const Login = () => {
                     <span className="text-xs font-medium text-gray-200 uppercase lg:text-sm dark:text-gray-300">
                       Apple
                     </span>
-                  </a>
+                  </div>
                 </div>
               </div>
               <p className="px-2 mt-6 text-sm md:text-base text-left text-gray-900 dark:text-gray-400">
