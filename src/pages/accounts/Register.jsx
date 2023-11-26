@@ -88,7 +88,7 @@ const Register = () => {
                   if (res.data.insertedId) {
                     Swal.fire({
                       icon: "success",
-                      title: "User created successfully.",
+                      title: "Account created successfully.",
                       showConfirmButton: false,
                       timer: 1500,
                     });
@@ -139,7 +139,7 @@ const Register = () => {
           if (res.data.insertedId) {
             Swal.fire({
               icon: "success",
-              title: "User created successfully.",
+              title: "Account created successfully.",
               showConfirmButton: false,
               timer: 1500,
             });

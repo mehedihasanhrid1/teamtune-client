@@ -19,7 +19,7 @@ export default function Root() {
 
   return (
     <div className={isDarkMode ? 'dark' : 'light'}>
-      <Navbar isDarkMode={isDarkMode} toggleDarkMode={() => setIsDarkMode(!isDarkMode)}/>
+      {noShared || <Navbar isDarkMode={isDarkMode} toggleDarkMode={() => setIsDarkMode(!isDarkMode)}/>}
       <Outlet/>
       {noShared || <Footer/>}
     </div>

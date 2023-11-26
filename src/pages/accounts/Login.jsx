@@ -10,64 +10,85 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loginError, setLoginError] = useState(null);
-  const { signIn, googleLogin , logOut } = useAuth();
+  const { signIn, googleLogin, logOut } = useAuth();
 
   useEffect(() => {
     document.title = "Sign In to Your Account - Team Tune";
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     try {
-      const firedUser = await axios.get(
-        `http://localhost:5000/fireduser/${email}`
-      );
-      if (firedUser.data?.email) {
+      await signIn(email, password);
+
+      const firedUser = await axios.get(`http://localhost:5000/user/${email}`);
+
+      if (firedUser.data.fired) {
         Swal.fire({
           icon: "error",
-          title: "You are Fired",
+          title: "You have been fired!",
           text: "You can't login now.",
         });
+
+        logOut();
       } else {
-        await signIn(email, password);
         navigate(location?.state ? location?.state : "/");
       }
     } catch (error) {
+      setLoginError("Invalid email or password");
       console.error("Sign-in failed:", error.message);
     }
-    setLoginError("Invalid email or password");
   };
 
   const handleGoogleLogin = async () => {
     try {
-      Swal.fire({
-        icon: "success",
-        title: "User created successfully.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      // const response = await googleLogin();
-      // const email = response.user?.email;
-      // const firedUser = await axios.get(
-      //   `http://localhost:5000/fireduser/${email}`
-      // );
-      // if (firedUser.data?.email) {
-      //   logOut();
-      //   Swal.fire({
-      //     icon: "error",
-      //     title: "You are Fired",
-      //     text: "You can't login now.",
-      //   });
-      // }else{
-      //   navigate(location?.state ? location?.state : "/");
-      // }
+      const response = await googleLogin();
+      const email = response.user?.email;
+
+      try {
+        const userExists = await axios.get(
+          `http://localhost:5000/user/${email}`
+        );
+
+        if (userExists.data) {
+          if (userExists.data.fired) {
+            Swal.fire({
+              icon: "error",
+              title: "You have been fired!",
+              text: "You can't login now.",
+            });
+            logOut();
+          } else {
+            navigate(location?.state ? location?.state : "/");
+          }
+        } else {
+          logOut();
+          setLoginError("Failed to sign in.");
+          navigate("/login");
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "You are a new user!",
+          text: "You have to create a new account with google first.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sign Up",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            logOut();
+            navigate("/register");
+          }
+        });
+      }
     } catch (error) {
       console.error(error.message);
+      setLoginError("Failed to sign in with Google");
     }
-    setLoginError("Failed to sign in with Google");
   };
 
   return (
@@ -87,28 +108,36 @@ const Login = () => {
             <p className="text-lg lg:text-xl text-gray-800 font-medium dark:text-gray-200 mb-4 md:mb-6">
               Welcome Back!
             </p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
               <div className="mb-4 lg:mb-5">
-              <label className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
-              Email
-            </label>
+                <label
+                  htmlFor="email"
+                  className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
+                >
+                  Email
+                </label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                   name="email"
+                  id="email"
                   placeholder="Enter your email"
                   required
                 />
               </div>
               <div className="mb-5 lg:mb-6">
-              <label className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2">
-              Password
-            </label>
+                <label
+                  htmlFor="password"
+                  className="block lg:text-lg text-left text-gray-900 dark:text-gray-100 font-medium mb-2"
+                >
+                  Password
+                </label>
                 <div className="relative flex items-center">
                   <input
                     type={showPassword ? "text" : "password"}
                     className="w-full px-4 py-3 bg-[#ffffff96] placeholder:text-gray-600 dark:placeholder:text-gray-500 rounded-lg lg:py-4 outline-none text-gray-800 dark:text-gray-100 dark:bg-[#334155aa]"
                     name="password"
+                    id="password"
                     placeholder="Enter password"
                     required
                   />
@@ -127,9 +156,20 @@ const Login = () => {
                   </svg>
                 </div>
               </div>
-              <div className={`flex items-center justify-between ${loginError?'mb-1':'mb-4'}`}>
-                <label className="flex items-center justify-center text-gray-800 dark:text-gray-300">
-                  <input type="checkbox" className="mr-2 h-4 w-4 cursor-pointer" />
+              <div
+                className={`flex items-center justify-between ${
+                  loginError ? "mb-1" : "mb-4"
+                }`}
+              >
+                <label
+                  htmlFor="remember"
+                  className="flex items-center justify-center text-gray-800 dark:text-gray-300"
+                >
+                  <input
+                    id="remember"
+                    type="checkbox"
+                    className="mr-2 h-4 w-4 cursor-pointer"
+                  />
                   <span className="text-sm lg:text-base text-gray-900 dark:text-gray-200">
                     Remember me
                   </span>

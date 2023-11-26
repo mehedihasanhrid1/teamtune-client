@@ -154,6 +154,7 @@ const Footer = () => {
               <div className="w-full py-1 mb-2 lg:flex-1 lg:py-0 lg:mr-3 lg:mb-0">
                 <input
                   type="email"
+                  id="email"
                   className="inline-block w-full h-12 px-3 text-gray-700 placeholder-gray-500 border rounded-md dark:placeholder-gray-400 dark:text-gray-400 dark:border-gray-700 dark:bg-gray-700"
                   placeholder="Your email"
                 />
