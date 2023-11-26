@@ -13,6 +13,7 @@ import AdminRoutes from "./AdminRoutes";
 import AdminHome from "../dashboard/admin/AdminHome";
 import EmployeeRoutes from "./EmployeeRoutes";
 import EmployeeHome from "../dashboard/employee/EmployeeHome";
+import PrivateRoute from "./PrivateRoute";
 
 axios.defaults.withCredentials = true;
 
@@ -41,7 +42,7 @@ const routers = createBrowserRouter(
                 },
                 {
                     path:'/dashboard',
-                    element:<Dashboard/>,
+                    element:<PrivateRoute><Dashboard/></PrivateRoute>,
                     children: [
                         {
                             path:'hr',

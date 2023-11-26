@@ -103,7 +103,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                 </svg>
               </button>
             </div>
-            <ul className="hidden lg:w-auto lg:space-x-8 lg:items-center lg:flex text-lg font-medium text-gray-700  dark:text-gray-100">
+            <ul className="hidden lg:w-auto lg:space-x-6 lg:items-center lg:flex text-lg font-medium text-gray-700  dark:text-gray-100">
               {navlist}
             </ul>
             <div className={`${user? 'flex gap-2 mr-3 md:mr-2 flex-row-reverse md:flex-row items-center justify-center':'block'}`}>
