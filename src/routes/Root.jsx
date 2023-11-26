@@ -6,6 +6,7 @@ import Footer from '../layouts/Footer';
 export default function Root() {
   const location = useLocation();
   const noShared = location.pathname.includes('login') || location.pathname.includes('register');
+  const noFooter = location.pathname.includes('dashboard');
   const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
 
   useEffect(()=>{
@@ -21,7 +22,7 @@ export default function Root() {
     <div className={isDarkMode ? 'dark' : 'light'}>
       {noShared || <Navbar isDarkMode={isDarkMode} toggleDarkMode={() => setIsDarkMode(!isDarkMode)}/>}
       <Outlet/>
-      {noShared || <Footer/>}
+      {noShared || noFooter || <Footer/>}
     </div>
   )
 }

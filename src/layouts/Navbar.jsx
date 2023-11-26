@@ -8,11 +8,17 @@ import {
   PopoverHandler,
   PopoverContent,
 } from "@material-tailwind/react";
+import useHr from "../hooks/useHr";
+import useAdmin from "../hooks/useAdmin";
+import useEmployee from "../hooks/useEmployee";
  
 
 const Navbar = ({ isDarkMode, toggleDarkMode }) => {
   const [open, setOpen] = useState(false);
   const { user, logOut } = useAuth();
+  const [isHr] = useHr();
+  const [isAdmin] = useAdmin();
+  const [isEmployee] = useEmployee();
 
   const navlist = (
     <>
@@ -26,16 +32,36 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
       >
         Home
       </NavLink>
-      <NavLink
+      {user && isHr && <NavLink
         className={(navData) =>
           navData.isActive
             ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
             : "hover:text-blue-600 dark:hover:text-blue-500"
         }
-        to="/dashboard"
+        to="/dashboard/hr"
       >
         Dashboard
-      </NavLink>
+      </NavLink>}
+      {user && isAdmin && <NavLink
+        className={(navData) =>
+          navData.isActive
+            ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
+            : "hover:text-blue-600 dark:hover:text-blue-500"
+        }
+        to="/dashboard/admin"
+      >
+        Dashboard
+      </NavLink>}
+      {user && isEmployee && <NavLink
+        className={(navData) =>
+          navData.isActive
+            ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
+            : "hover:text-blue-600 dark:hover:text-blue-500"
+        }
+        to="/dashboard/employee"
+      >
+        Dashboard
+      </NavLink>}
       <NavLink
         className={(navData) =>
           navData.isActive
@@ -93,7 +119,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
                  <Popover>
                  <PopoverHandler>
                  <img
-                  className="cursor-pointer rounded-full h-8 w-8 md:h-9 md:w-9 lg:h-10 lg:w-10"
+                  className="cursor-pointer object-cover rounded-full h-8 w-8 md:h-9 md:w-9 lg:h-10 lg:w-10"
                   src={user.photoURL}
                   alt=""
                 />
