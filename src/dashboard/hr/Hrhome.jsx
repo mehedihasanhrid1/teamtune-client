@@ -1,9 +1,10 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const Hrhome = () => {
     return (
-        <div>
-            HR HOME
+        <div className='py-5 pl-8'>
+            <Outlet/>
         </div>
     );
 };

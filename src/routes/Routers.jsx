@@ -14,6 +14,9 @@ import AdminHome from "../dashboard/admin/AdminHome";
 import EmployeeRoutes from "./EmployeeRoutes";
 import EmployeeHome from "../dashboard/employee/EmployeeHome";
 import PrivateRoute from "./PrivateRoute";
+import HrProfile from "../dashboard/hr/HrProfile";
+import EmployeeList from "../dashboard/hr/EmployeeList";
+import Progress from "../dashboard/hr/Progress";
 
 axios.defaults.withCredentials = true;
 
@@ -47,6 +50,20 @@ const routers = createBrowserRouter(
                         {
                             path:'hr',
                             element:<HrRoutes><Hrhome/></HrRoutes>,
+                            children:[
+                                {
+                                    path:'profile',
+                                    element:<HrRoutes><HrProfile/></HrRoutes>,
+                                },
+                                {
+                                    path:'employee-list',
+                                    element:<HrRoutes><EmployeeList/></HrRoutes>,
+                                },
+                                {
+                                    path:'progress',
+                                    element:<HrRoutes><Progress/></HrRoutes>,
+                                }
+                            ]
                         },
                         {
                             path:'admin',
