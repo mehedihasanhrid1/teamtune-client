@@ -35,7 +35,7 @@ const Sidebar = () => {
         </button>
       </div>
       <div
-        className={`absolute md:relative dark:bg-[#111827] border-r border-gray-200 dark:border-gray-900 h-[40rem] w-[280px] bg-gray-100 overflow-hidden ${
+        className={`absolute xl:relative dark:bg-[#111827] border-r border-gray-200 dark:border-gray-900 h-[40rem] w-[280px] bg-gray-100 overflow-hidden ${
           open ? "block" : "hidden"
         }`}
       >

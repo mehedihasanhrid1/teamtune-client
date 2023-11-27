@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const PaymentHistory = () => {
+    useEffect(() => {
+        document.title = "Payment History - Employee | Dashboard";
+      }, []);
     return (
         <div>
             Payment History
