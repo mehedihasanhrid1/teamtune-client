@@ -1,9 +1,10 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const EmployeeHome = () => {
     return (
-        <div>
-            Employee Home
+        <div className='p-5 md:p-8'>
+            <Outlet/>
         </div>
     );
 };

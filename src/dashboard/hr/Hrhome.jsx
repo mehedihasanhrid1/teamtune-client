@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 const Hrhome = () => {
     return (
-        <div className='py-5 pl-8'>
+        <div className='p-5 md:p-8'>
             <Outlet/>
         </div>
     );

@@ -17,6 +17,11 @@ import PrivateRoute from "./PrivateRoute";
 import HrProfile from "../dashboard/hr/HrProfile";
 import EmployeeList from "../dashboard/hr/EmployeeList";
 import Progress from "../dashboard/hr/Progress";
+import AdminProfile from "../dashboard/admin/AdminProfile";
+import EmployeeProfile from "../dashboard/employee/EmployeeProfile";
+import AllEmployee from "../dashboard/admin/AllEmployee";
+import PaymentHistory from "../dashboard/employee/PaymentHistory";
+import WorkSheet from "../dashboard/employee/WorkSheet";
 
 axios.defaults.withCredentials = true;
 
@@ -68,10 +73,34 @@ const routers = createBrowserRouter(
                         {
                             path:'admin',
                             element:<AdminRoutes><AdminHome/></AdminRoutes>,
+                            children:[
+                                {
+                                    path:'profile',
+                                    element:<AdminRoutes><AdminProfile/></AdminRoutes>
+                                },
+                                {
+                                    path:'all-employee-list',
+                                    element:<AdminRoutes><AllEmployee/></AdminRoutes>
+                                }
+                            ]
                         },
                         {
                             path:'employee',
-                            element: <EmployeeRoutes><EmployeeHome/></EmployeeRoutes>
+                            element: <EmployeeRoutes><EmployeeHome/></EmployeeRoutes>,
+                            children:[
+                                {
+                                    path:'profile',
+                                    element:<EmployeeRoutes><EmployeeProfile/></EmployeeRoutes>
+                                },
+                                {
+                                    path:'payment-history',
+                                    element:<EmployeeRoutes><PaymentHistory/></EmployeeRoutes>
+                                },
+                                {
+                                    path:'work-sheet',
+                                    element:<EmployeeRoutes><WorkSheet/></EmployeeRoutes>
+                                }
+                            ]
                         }
                     ]
                 },

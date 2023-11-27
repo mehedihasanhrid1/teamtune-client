@@ -47,11 +47,11 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
       {user && isAdmin && (
         <NavLink
           className={(navData) =>
-            navData.isActive
+            navData.isActive || location.pathname.includes("/dashboard/admin")
               ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
               : "hover:text-blue-600 dark:hover:text-blue-500"
           }
-          to="/dashboard/admin"
+          to="/dashboard/admin/all-employee-list"
         >
           Dashboard
         </NavLink>
@@ -59,11 +59,11 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
       {user && isEmployee && (
         <NavLink
           className={(navData) =>
-            navData.isActive
+            navData.isActive || location.pathname.includes("/dashboard/employee")
               ? "text-blue-700 dark:text-blue-600 dark:border-blue-600 border-b-2 border-blue-700"
               : "hover:text-blue-600 dark:hover:text-blue-500"
           }
-          to="/dashboard/employee"
+          to="/dashboard/employee/profile"
         >
           Dashboard
         </NavLink>
@@ -201,7 +201,7 @@ const Navbar = ({ isDarkMode, toggleDarkMode }) => {
           }`}
         ></div>
         <div
-          className={`absolute inset-0 z-10 h-screen p-3 duration-500 transform bg-blue-50 dark:bg-gray-800 w-80 lg:hidden lg:transform-none lg:relative ${
+          className={`absolute inset-0 z-50 h-screen p-3 duration-500 transform bg-blue-50 dark:bg-gray-800 w-80 lg:hidden lg:transform-none lg:relative ${
             open
               ? "translate-x-0 ease-in-opacity-100"
               : "-translate-x-full ease-out opacity-0"
