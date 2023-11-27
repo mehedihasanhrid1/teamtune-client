@@ -74,12 +74,12 @@ const EmployeeList = () => {
                 {user.salary}
               </td>
               <td className="px-6 py-4">
-                { user.verify ? <button className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700">Pay</button> :
-                <button className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-gray-600 rounded cursor-not-allowed border border-gray-500 dark:border-gray-700">Pay</button>
+                { user.verify ? <button className="inline-block px-5 py-3  font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700">Pay</button> :
+                <button className="inline-block px-5 py-3  font-semibold leading-none text-gray-100 bg-gray-600 rounded cursor-not-allowed border border-gray-500 dark:border-gray-700">Pay</button>
                 }
               </td>
               <td className="px-6 py-4">
-                <button className="inline-block px-5 py-3 mr-2 font-semibold leading-none text-gray-100 bg-green-500 border border-green-600 rounded dark:border-green-400 hover:bg-green-700">Details</button>
+                <button className="inline-block px-5 py-3  font-semibold leading-none text-gray-100 bg-green-500 border border-green-600 rounded dark:border-green-400 hover:bg-green-700">Details</button>
               </td>
             </tr>
           ))}
