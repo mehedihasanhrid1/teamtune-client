@@ -1,26 +1,10 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import useAuth from "../hooks/useAuth";
+import React from "react";
 import { InfinitySpin } from "react-loader-spinner";
+import useUser from '../hooks/useUser';
 
 const Profile = () => {
-  const { user } = useAuth();
-  const [data, setUserData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/user/${user.email}`
-        );
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Error fetching user data", error);
-      }
-    };
-    fetchData();
-  }, []);
-
+  const [data ] = useUser();
+  
   if (!data) {
     return (
         <div className="flex items-center justify-center h-screen">

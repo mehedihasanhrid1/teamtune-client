@@ -14,13 +14,12 @@
     "@tanstack/react-query": "^5.8.7",
     "axios": "^1.6.2",
     "firebase": "^10.6.0",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-fast-marquee": "^1.6.2",
     "react-icons": "^4.12.0",
     "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.19.0",
-    "react-table": "^7.8.0",
     "sweetalert2": "^11.10.1"
   },
   "devDependencies": {
