@@ -58,7 +58,7 @@ const WorkSheet = () => {
 
   return (
     <div>
-      <div className="my-3 p-5 w-[21rem] md:w-[44rem] lg:w-[60rem] xl:w-full bg-gray-200 dark:bg-gray-800  shadow-md border border-gray-100 dark:border-gray-700 rounded-lg flex flex-col items-center justify-center">
+      <div className="my-3 p-5 w-[21rem] md:w-[44rem] lg:w-[60rem] bg-gray-200 dark:bg-gray-800  shadow-md border border-gray-100 dark:border-gray-700 rounded-lg flex flex-col items-center justify-center">
         <h2 className="text-xl lg:text-3xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
           Submit a Work
         </h2>
@@ -143,7 +143,7 @@ const WorkSheet = () => {
           </form>
         </div>
 
-        <div className="overflow-x-auto w-[19rem] md:w-[42rem] lg:w-[58rem] xl:w-full">
+        <div className="overflow-x-auto w-[19rem] md:w-[42rem] lg:w-[58rem]">
           <table className="w-full text-left rtl:text-right text-gray-500 dark:text-gray-300 text-sm xl:text-base">
             <thead className="text-sm xl:text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
               <tr>
