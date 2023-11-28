@@ -22,6 +22,7 @@ import EmployeeProfile from "../dashboard/employee/EmployeeProfile";
 import AllEmployee from "../dashboard/admin/AllEmployee";
 import PaymentHistory from "../dashboard/employee/PaymentHistory";
 import WorkSheet from "../dashboard/employee/WorkSheet";
+import UserDetails from "../dashboard/hr/UserDetails";
 
 axios.defaults.withCredentials = true;
 
@@ -67,6 +68,10 @@ const routers = createBrowserRouter(
                                 {
                                     path:'progress',
                                     element:<HrRoutes><Progress/></HrRoutes>,
+                                },
+                                {
+                                    path:'employee-details/:userId',
+                                    element:<HrRoutes><UserDetails/></HrRoutes>,
                                 }
                             ]
                         },
