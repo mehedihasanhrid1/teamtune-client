@@ -1,7 +1,5 @@
 import React from "react";
-
 import { Navigate, useLocation } from "react-router-dom";
-import { InfinitySpin } from "react-loader-spinner";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
 
@@ -13,7 +11,6 @@ const AdminRoutes = ({ children }) => {
   if (loading || isAdminLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <InfinitySpin width="200" color="#4fa94d" />
       </div>
     );
   }
