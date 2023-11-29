@@ -1,7 +1,7 @@
 # TeamTune - Manage your Employee
 
-## Website Link: [Click Here]()
-## Server Link: [Click Here]()
+## Website Link: [Click Here](https://hrid-phero.web.app/)
+## Server Link: [Click Here](https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/)
 
 ## Overview
 This is an Employee Management Dashboard web application that allows administrators to view and manage employee information, work hours, and perform various actions.

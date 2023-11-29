@@ -24,7 +24,7 @@ const Login = () => {
     try {
       await signIn(email, password);
 
-      const firedUser = await axios.get(`http://localhost:5000/user/${email}`);
+      const firedUser = await axios.get(`https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/user/${email}`);
 
       if (firedUser.data.fired) {
         Swal.fire({
@@ -50,7 +50,7 @@ const Login = () => {
 
       try {
         const userExists = await axios.get(
-          `http://localhost:5000/user/${email}`
+          `https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/user/${email}`
         );
 
         if (userExists.data) {

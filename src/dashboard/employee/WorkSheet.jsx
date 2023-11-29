@@ -36,7 +36,7 @@ const WorkSheet = () => {
       date: formData.date,
     };
     try {
-      const res = await axios.post("http://localhost:5000/worksheet", workData);
+      const res = await axios.post("https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/worksheet", workData);
       if (res.data.insertedId) {
         refetch();
         Swal.fire({
