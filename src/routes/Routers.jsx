@@ -70,7 +70,7 @@ const routers = createBrowserRouter(
                                     element:<HrRoutes><Progress/></HrRoutes>,
                                 },
                                 {
-                                    path:'employee-details/:userId',
+                                    path:'employee-details/:userEmail',
                                     element:<HrRoutes><UserDetails/></HrRoutes>,
                                 }
                             ]

@@ -46,8 +46,8 @@ const EmployeeHrList = () => {
 
   const years = Array.from({ length: 26 }, (_, index) => 2020 + index);
 
-  const handleSeeDetails = (id) => {
-    navigate(`/dashboard/hr/employee-details/${id}`);
+  const handleSeeDetails = (email) => {
+    navigate(`/dashboard/hr/employee-details/${email}`);
   };
 
   const handlePayment = (user) => {
@@ -59,7 +59,7 @@ const EmployeeHrList = () => {
     e.preventDefault();
 
     const response = await axios.get(
-      `http://localhost:5000/payments/${employee._id}`
+      `http://localhost:5000/payments/${employee.email}`
     );
 
     const existingPayment = response.data.find(
@@ -164,7 +164,7 @@ const EmployeeHrList = () => {
 
   return (
     <div>
-      <div className="overflow-x-auto w-80 md:w-[44rem] lg:w-[60rem] xl:w-full shadow-md border border-gray-100 dark:border-gray-700 rounded-lg">
+      <div className="overflow-x-auto w-80 md:w-[44rem] lg:w-[60rem] xl:w-[68rem] shadow-md border border-gray-100 dark:border-gray-700 rounded-lg">
         <table className="w-full text-left rtl:text-right text-gray-500 dark:text-gray-300 text-sm xl:text-base">
           <thead className="text-sm xl:text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
             <tr>
@@ -227,7 +227,7 @@ const EmployeeHrList = () => {
                 </td>
                 <td className="px-6 py-4">
                   <button
-                    onClick={() => handleSeeDetails(user._id)}
+                    onClick={() => handleSeeDetails(user.email)}
                     className="inline-block px-5 py-3  font-semibold leading-none text-gray-100 bg-green-500 border border-green-600 rounded dark:border-green-400 hover:bg-green-700"
                   >
                     Details
