@@ -5,8 +5,8 @@ const Profile = () => {
   const [data ] = useUser();
   
   return (
-    <div className="flex items-center py-3 justify-center w-[21rem] md:w-[44rem] lg:w-[60rem]">
-      <div className="py-4 w-full lg:py-6 bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg flex items-center justify-center">
+    <div className="flex items-center py-3 justify-center w-[20rem] md:w-[44rem] lg:w-[60rem]">
+      <div className="py-4 w-[19rem] md:w-[42rem] lg:w-[58rem] lg:py-6 bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg flex items-center justify-center">
         <div className="w-full mx-auto">
           <div className="flex items-center justify-center mt-4 md:mt-8 mb-2">
             <img
