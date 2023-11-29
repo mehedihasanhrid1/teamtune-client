@@ -72,7 +72,7 @@ const EmployeeHrList = () => {
       setSelectedYear("");
       Swal.fire({
         icon: "error",
-        title: "Payment Error",
+        title: "Payment Error!",
         text: `You have already paid for ${selectedMonth} ${selectedYear}.`,
       });
       return;
@@ -243,7 +243,7 @@ const EmployeeHrList = () => {
         <div className="flex flex-col items-center justify-center my-2">
           <DialogHeader>Pay, {employee.name}</DialogHeader>
           <img
-            className="rounded-full h-20 w-20 object-cover"
+            className="rounded-full h-20 w-20 md:h-24 md:w-24 object-cover"
             src={employee.photo}
             alt=""
           />
@@ -349,8 +349,8 @@ const EmployeeHrList = () => {
             </div>
           </form>
         </DialogBody>
-        <DialogFooter className="mb-2.5 -mt-5 mr-5">
-          <Button
+        <DialogFooter className="mb-2 -mt-6 mr-5">
+          <Button className="text-sm"
             color="red"
             onClick={() => {
               setOpen(!open);
