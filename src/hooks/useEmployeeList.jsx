@@ -6,7 +6,7 @@ const useEmployeeList = () => {
     const {data: users = [], isPending: loading, refetch} = useQuery({
         queryKey: ['users'], 
         queryFn: async() =>{
-            const res = await axios.get('https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/employee-list');
+            const res = await axios.get('http://localhost:5000/employee-list');
             return res.data;
         }
     })

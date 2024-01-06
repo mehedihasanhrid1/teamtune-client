@@ -83,7 +83,7 @@ const Register = () => {
               logOut();
 
               axios
-                .post("https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/users", userData)
+                .post("http://localhost:5000/users", userData)
                 .then((res) => {
                   if (res.data.insertedId) {
                     Swal.fire({
@@ -134,7 +134,7 @@ const Register = () => {
       setOpen(false);
       logOut();
   
-      axios.post("https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/users", userData)
+      axios.post("http://localhost:5000/users", userData)
         .then((res) => {
           if (res.data.insertedId) {
             Swal.fire({

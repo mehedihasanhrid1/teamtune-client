@@ -9,7 +9,7 @@ const useAdmin = () => {
         queryKey: [user?.email, 'isAdmin'],
         enabled: !loading,
         queryFn: async () => {
-            const res = await axios.get(`https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/user/${user.email}`);
+            const res = await axios.get(`http://localhost:5000/user/${user.email}`);
             const resData = res.data;
             const isAdmin = resData?.role === 'admin';
             return isAdmin;

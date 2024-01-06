@@ -35,7 +35,7 @@ const EmployeeHrList = () => {
   useEffect(() => {
     if (userSalary > 0) {
       axios
-        .post("https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/paymentintent", { salary: userSalary })
+        .post("http://localhost:5000/paymentintent", { salary: userSalary })
         .then((res) => {
           setClientSecret(res.data.clientSecret);
         });
@@ -59,7 +59,7 @@ const EmployeeHrList = () => {
     e.preventDefault();
 
     const response = await axios.get(
-      `https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/payments/${employee.email}`
+      `http://localhost:5000/payments/${employee.email}`
     );
 
     const existingPayment = response.data.find(
@@ -129,7 +129,7 @@ const EmployeeHrList = () => {
           recevied: parseInt(paymentIntent.amount / 100),
         };
 
-        const res = await axios.post("https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/payments", payment);
+        const res = await axios.post("http://localhost:5000/payments", payment);
         if (res.data.insertedId) {
           setEmployee({});
           Swal.fire({
@@ -146,7 +146,7 @@ const EmployeeHrList = () => {
   const handleToggle = async (userId, currentStatus) => {
     try {
       const response = await axios.patch(
-        `https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/users/${userId}`,
+        `http://localhost:5000/users/${userId}`,
         { verify: !currentStatus }
       );
       if (response.data) {

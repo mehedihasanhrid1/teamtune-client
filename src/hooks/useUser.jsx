@@ -9,7 +9,7 @@ const useUser = () => {
         queryKey: ['data'], 
         queryFn: async() =>{
             const res = await axios.get(
-                `https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/user/${user.email}`
+                `http://localhost:5000/user/${user.email}`
               );
             return res.data;
         }

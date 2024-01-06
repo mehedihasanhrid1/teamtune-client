@@ -22,7 +22,7 @@ const AllEmployee = () => {
         confirmButtonText: "Yes, make HR!",
       });
       if (result.isConfirmed) {
-        await axios.patch(`https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/make-hr/${userId}`, {
+        await axios.patch(`http://localhost:5000/make-hr/${userId}`, {
           role: "hr",
         });
         refetch();
@@ -50,7 +50,7 @@ const AllEmployee = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.patch(`https://team-tune-server-ndbqfpznh-mehedi-hasans-hrid.vercel.app/fire/${userId}`, {
+        await axios.patch(`http://localhost:5000/fire/${userId}`, {
           fired: true,
         });
         refetch();
