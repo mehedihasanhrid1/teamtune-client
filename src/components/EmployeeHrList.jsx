@@ -143,11 +143,11 @@ const EmployeeHrList = () => {
     }
   };
 
-  const handleToggle = async (userId, currentStatus) => {
+  const handleToggle = async (userId, verified) => {
     try {
       const response = await axios.patch(
         `http://localhost:5000/users/${userId}`,
-        { verify: !currentStatus }
+        { verify: !verified }
       );
       if (response.data) {
         Swal.fire({
