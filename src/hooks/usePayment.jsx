@@ -9,7 +9,7 @@ const usePayment = () => {
   const { data: payments = [], isLoading: loading, refetch } = useQuery({
     queryKey: ['payments'],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/payments/${user.email}`);
+      const res = await axios.get(`https://team-tune-server.vercel.app/payments/${user.email}`);
       const sorted = res.data.sort((a, b) => {
         const dateA = moment(a.payment_for, 'MMMM YYYY');
         const dateB = moment(b.payment_for, 'MMMM YYYY');

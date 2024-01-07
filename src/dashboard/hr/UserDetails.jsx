@@ -11,7 +11,7 @@ const UserDetails = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/user/${userEmail}`);
+        const res = await axios.get(`https://team-tune-server.vercel.app/user/${userEmail}`);
         setUser(res.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -24,7 +24,7 @@ const UserDetails = () => {
     const fetchPayment = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/payments/${userEmail}`
+          `https://team-tune-server.vercel.app/payments/${userEmail}`
         );
         const sorted = res.data.sort((a, b) => {
           const dateA = moment(a.payment_for, "MMMM YYYY");

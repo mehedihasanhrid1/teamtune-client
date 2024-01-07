@@ -83,7 +83,7 @@ const Register = () => {
               logOut();
 
               axios
-                .post("http://localhost:5000/users", userData)
+                .post("https://team-tune-server.vercel.app/users", userData)
                 .then((res) => {
                   if (res.data.insertedId) {
                     Swal.fire({
@@ -134,7 +134,7 @@ const Register = () => {
       setOpen(false);
       logOut();
   
-      axios.post("http://localhost:5000/users", userData)
+      axios.post("https://team-tune-server.vercel.app/users", userData)
         .then((res) => {
           if (res.data.insertedId) {
             Swal.fire({

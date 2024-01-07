@@ -8,7 +8,7 @@ const useWorkData = () => {
     const {data: works = [], isPending: loading, refetch} = useQuery({
         queryKey: ['works'], 
         queryFn: async() =>{
-            const res = await axios.get(`http://localhost:5000/worksheet/${user.email}`);
+            const res = await axios.get(`https://team-tune-server.vercel.app/worksheet/${user.email}`);
             return res.data;
         }
     })

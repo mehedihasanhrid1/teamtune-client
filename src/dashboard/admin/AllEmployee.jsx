@@ -22,7 +22,7 @@ const AllEmployee = () => {
         confirmButtonText: "Yes, make HR!",
       });
       if (result.isConfirmed) {
-        await axios.patch(`http://localhost:5000/make-hr/${userId}`, {
+        await axios.patch(`https://team-tune-server.vercel.app/make-hr/${userId}`, {
           role: "hr",
         });
         refetch();
@@ -51,7 +51,7 @@ const AllEmployee = () => {
 
       if (result.isConfirmed) {
         const res = await axios.delete(
-          `http://localhost:5000/delete/${userId}`
+          `https://team-tune-server.vercel.app/delete/${userId}`
         );
         if (res.data) {
           refetch();
@@ -80,7 +80,7 @@ const AllEmployee = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.patch(`http://localhost:5000/fire/${userId}`, {
+        await axios.patch(`https://team-tune-server.vercel.app/fire/${userId}`, {
           fired: true,
         });
         refetch();
@@ -108,7 +108,7 @@ const AllEmployee = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.patch(`http://localhost:5000/fire/${userId}`, {
+        await axios.patch(`https://team-tune-server.vercel.app/fire/${userId}`, {
           fired: false,
         });
         refetch();

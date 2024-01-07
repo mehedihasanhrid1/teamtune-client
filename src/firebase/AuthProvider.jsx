@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setLoading(true);
-    axios.post("http://localhost:5000/logout", null);
+    axios.post("https://team-tune-server.vercel.app/logout", null);
     return signOut(auth);
   };
 
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (user) {
         const signedUser = { email: user.email };
-        axios.post("http://localhost:5000/jwt", signedUser).catch((error) => {
+        axios.post("https://team-tune-server.vercel.app/jwt", signedUser).catch((error) => {
           console.error("Error setting JWT_TOKEN:", error);
         });
       }
