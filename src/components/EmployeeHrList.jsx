@@ -35,7 +35,7 @@ const EmployeeHrList = () => {
   useEffect(() => {
     if (userSalary > 0) {
       axios
-        .post("http://localhost:5000/paymentintent", { salary: userSalary })
+        .post("https://team-tune-server.vercel.app/paymentintent", { salary: userSalary })
         .then((res) => {
           setClientSecret(res.data.clientSecret);
         });
@@ -59,7 +59,7 @@ const EmployeeHrList = () => {
     e.preventDefault();
 
     const response = await axios.get(
-      `http://localhost:5000/payments/${employee.email}`
+      `https://team-tune-server.vercel.app/payments/${employee.email}`
     );
 
     const existingPayment = response.data.find(
@@ -129,7 +129,7 @@ const EmployeeHrList = () => {
           recevied: parseInt(paymentIntent.amount / 100),
         };
 
-        const res = await axios.post("http://localhost:5000/payments", payment);
+        const res = await axios.post("https://team-tune-server.vercel.app/payments", payment);
         if (res.data.insertedId) {
           setEmployee({});
           Swal.fire({
@@ -146,7 +146,7 @@ const EmployeeHrList = () => {
   const handleToggle = async (userId, verified) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/users/${userId}`,
+        `https://team-tune-server.vercel.app/users/${userId}`,
         { verify: !verified }
       );
       if (response.data) {
