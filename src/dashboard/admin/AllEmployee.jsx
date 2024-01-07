@@ -95,6 +95,36 @@ const AllEmployee = () => {
     }
   };
 
+  const appointEmployee = async (userId) => {
+    try {
+      const result = await Swal.fire({
+        title: "Re Appoint Employee",
+        text: "Are you sure you want to re-appoint this employee?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, appoint!",
+      });
+
+      if (result.isConfirmed) {
+        await axios.patch(`http://localhost:5000/fire/${userId}`, {
+          fired: false,
+        });
+        refetch();
+        Swal.fire({
+          title: "Success!",
+          text: "The employee has been re-appointed.",
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      console.error("Error reappointing employee:", error);
+    }
+  };
+
+  
+
   return (
     <div>
       <div className="mb-6 md:mb-8 mt-2 flex items-center justify-center">
@@ -161,9 +191,7 @@ const AllEmployee = () => {
                     )}
 
                     {user.role === "user" && user.fired && (
-                      <button
-                        className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-gray-500 border border-gray-400 rounded dark:bg-gray-600 dark:border-gray-500 cursor-not-allowed"
-                      >
+                      <button className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-gray-500 border border-gray-400 rounded dark:bg-gray-600 dark:border-gray-500 cursor-not-allowed">
                         Make HR
                       </button>
                     )}
@@ -179,7 +207,10 @@ const AllEmployee = () => {
                   </td>
                   <td className="px-6 py-4">
                     {user.fired ? (
-                      <button className="inline-block pl-4 pr-5 py-3 font-bold text-lg leading-none text-red-600 dark:text-red-400 cursor-not-allowed">
+                      <button
+                        onClick={() => appointEmployee(user._id)}
+                        className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-orange-500 border border-orange-600 rounded dark:border-orange-400 hover:bg-orange-600"
+                      >
                         Fired
                       </button>
                     ) : (
@@ -261,7 +292,7 @@ const AllEmployee = () => {
                     </div>
                     <div>
                       {user.fired ? (
-                        <button className="inline-block pl-4 pr-5 py-3 font-bold text-lg leading-none text-red-600 dark:text-red-400 cursor-not-allowed">
+                        <button className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-orange-500 border border-orange-600 rounded dark:border-orange-400 hover:bg-orange-600 cursor-not-allowed">
                           Fired
                         </button>
                       ) : (
