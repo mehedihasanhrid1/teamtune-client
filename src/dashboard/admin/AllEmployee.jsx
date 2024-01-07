@@ -178,21 +178,20 @@ const AllEmployee = () => {
                       </button>
                     )}
                   </td>
-                  <td className="px-6 py-4">{user.fired && (
-                        <button
-                          onClick={() => deleteEmployee(user._id)}
-                          className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-red-500 border border-red-600 rounded dark:border-red-400 hover:bg-red-700"
-                        >
-                          Delete
-                        </button>
-                      ) || (
-                        <button
-                          onClick={() => deleteEmployee(user._id)}
-                          className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-gray-500 border border-gray-400 rounded dark:bg-gray-600 dark:border-gray-500 cursor-not-allowed"
-                        >
-                          Delete
-                        </button>
-                      ) }</td>
+                  <td className="px-6 py-4">
+                    {(user.fired && (
+                      <button
+                        onClick={() => deleteEmployee(user._id)}
+                        className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-red-500 border border-red-600 rounded dark:border-red-400 hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    )) || (
+                      <button className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-gray-500 border border-gray-400 rounded dark:bg-gray-600 dark:border-gray-500 cursor-not-allowed">
+                        Delete
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -229,18 +228,24 @@ const AllEmployee = () => {
                   </div>
                   <div className="mt-2 flex items-center justify-center gap-3">
                     <div>
-                      {user.role === "user" ? (
+                      {user.role === "user" && !user.fired && (
                         <button
                           onClick={() => makeHR(user._id)}
                           className="inline-block px-5 py-3  font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700"
                         >
                           Make HR
                         </button>
-                      ) : (
-                        <button className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-green-600 rounded cursor-not-allowed border dark:border-green-400 border-green-500">
+                      )}
+
+                      {user.role === "hr" && (
+                        <button
+                          onClick={() => makeHR(user._id)}
+                          className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-green-600 rounded cursor-not-allowed border dark:border-green-400 border-green-500"
+                        >
                           HR
                         </button>
                       )}
+
                     </div>
                     <div>
                       {user.fired ? (
