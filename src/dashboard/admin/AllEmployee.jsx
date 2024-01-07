@@ -156,11 +156,11 @@ const AllEmployee = () => {
                 <th scope="col" className="px-6 py-4">
                   Make HR
                 </th>
-                <th scope="col" className="px-6 py-4">
+                <th scope="col" className="px-6 py-4 text-center">
                   Fire
                 </th>
-                <th scope="col" className="px-6 py-4">
-                  Admin
+                <th scope="col" className="px-6 py-4 text-center">
+                  data
                 </th>
               </tr>
             </thead>
@@ -292,9 +292,12 @@ const AllEmployee = () => {
                     </div>
                     <div>
                       {user.fired ? (
-                        <button className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-orange-500 border border-orange-600 rounded dark:border-orange-400 hover:bg-orange-600 cursor-not-allowed">
-                          Fired
-                        </button>
+                        <button
+                        onClick={() => appointEmployee(user._id)}
+                        className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-orange-500 border border-orange-600 rounded dark:border-orange-400 hover:bg-orange-600"
+                      >
+                        Fired
+                      </button>
                       ) : (
                         <button
                           onClick={() => fireEmployee(user._id)}
