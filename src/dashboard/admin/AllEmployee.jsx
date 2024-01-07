@@ -37,6 +37,36 @@ const AllEmployee = () => {
     }
   };
 
+  const deleteEmployee = async (userId) => {
+    try {
+      const result = await Swal.fire({
+        title: "Delete Employee Data",
+        text: "Are you sure you want to delete this employee data?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete!",
+      });
+
+      if (result.isConfirmed) {
+        const res = await axios.delete(
+          `http://localhost:5000/delete/${userId}`
+        );
+        if (res.data) {
+          refetch();
+          Swal.fire({
+            title: "Success!",
+            text: "The employee has been deleted.",
+            icon: "success",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error deleteing employee:", error);
+    }
+  };
+
   const fireEmployee = async (userId) => {
     try {
       const result = await Swal.fire({
@@ -99,6 +129,9 @@ const AllEmployee = () => {
                 <th scope="col" className="px-6 py-4">
                   Fire
                 </th>
+                <th scope="col" className="px-6 py-4">
+                  Admin
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -145,6 +178,21 @@ const AllEmployee = () => {
                       </button>
                     )}
                   </td>
+                  <td className="px-6 py-4">{user.fired && (
+                        <button
+                          onClick={() => deleteEmployee(user._id)}
+                          className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-red-500 border border-red-600 rounded dark:border-red-400 hover:bg-red-700"
+                        >
+                          Delete
+                        </button>
+                      ) || (
+                        <button
+                          onClick={() => deleteEmployee(user._id)}
+                          className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-gray-500 border border-gray-400 rounded dark:bg-gray-600 dark:border-gray-500 cursor-not-allowed"
+                        >
+                          Delete
+                        </button>
+                      ) }</td>
                 </tr>
               ))}
             </tbody>
@@ -169,13 +217,13 @@ const AllEmployee = () => {
                     <p className="text-gray-800 dark:text-gray-200 font-semibold mt-1">
                       Varifaction Status:
                       <span className="text-gray-600 ml-1 font-normal dark:text-gray-400">
-                      {user.verify ? "Verified" : "Not Verified"}
+                        {user.verify ? "Verified" : "Not Verified"}
                       </span>
                     </p>
                     <p className="text-gray-800 dark:text-gray-200 font-semibold mt-1">
                       Designation:
                       <span className="text-gray-600 ml-1 font-normal dark:text-gray-400">
-                      {user.designation}
+                        {user.designation}
                       </span>
                     </p>
                   </div>
@@ -205,6 +253,16 @@ const AllEmployee = () => {
                           className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-red-500 border border-red-600 rounded dark:border-red-400 hover:bg-red-700"
                         >
                           Fire
+                        </button>
+                      )}
+                    </div>
+                    <div>
+                      {user.fired && (
+                        <button
+                          onClick={() => deleteEmployee(user._id)}
+                          className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-red-500 border border-red-600 rounded dark:border-red-400 hover:bg-red-700"
+                        >
+                          Delete
                         </button>
                       )}
                     </div>
