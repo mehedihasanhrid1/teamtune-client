@@ -151,15 +151,28 @@ const AllEmployee = () => {
                   </td>
                   <td className="px-6 py-4">{user.designation}</td>
                   <td className="px-6 py-4">
-                    {user.role === "user" ? (
+                    {user.role === "user" && !user.fired && (
                       <button
                         onClick={() => makeHR(user._id)}
                         className="inline-block px-5 py-3  font-semibold leading-none text-gray-100 bg-blue-600 border border-blue-500 rounded dark:border-blue-600 hover:bg-blue-700"
                       >
                         Make HR
                       </button>
-                    ) : (
-                      <button className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-green-600 rounded cursor-not-allowed border dark:border-green-400 border-green-500">
+                    )}
+
+                    {user.role === "user" && user.fired && (
+                      <button
+                        className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-gray-500 border border-gray-400 rounded dark:bg-gray-600 dark:border-gray-500 cursor-not-allowed"
+                      >
+                        Make HR
+                      </button>
+                    )}
+
+                    {user.role === "hr" && (
+                      <button
+                        onClick={() => makeHR(user._id)}
+                        className="inline-block px-5 py-3 font-semibold leading-none text-gray-100 bg-green-600 rounded cursor-not-allowed border dark:border-green-400 border-green-500"
+                      >
                         HR
                       </button>
                     )}
@@ -245,7 +258,6 @@ const AllEmployee = () => {
                           HR
                         </button>
                       )}
-
                     </div>
                     <div>
                       {user.fired ? (
