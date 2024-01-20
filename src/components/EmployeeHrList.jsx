@@ -164,7 +164,7 @@ const EmployeeHrList = () => {
 
   return (
     <div>
-      <div className="overflow-x-auto w-80 md:w-[44rem] lg:w-[60rem] xl:w-[68rem] shadow-md border border-gray-100 dark:border-gray-700 rounded-lg">
+      <div className="overflow-x-auto w-80 md:w-[44rem] lg:w-[60rem] xl:w-[80rem] shadow-md border border-gray-100 dark:border-gray-700 rounded-lg">
         <table className="w-full text-left rtl:text-right text-gray-500 dark:text-gray-300 text-sm xl:text-base">
           <thead className="text-sm xl:text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
             <tr>
