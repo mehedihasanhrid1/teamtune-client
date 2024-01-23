@@ -3,6 +3,9 @@
 ## Website Link: [Click Here](https://hrid-phero.web.app/)
 ## Server Link: [Click Here](https://team-tune-server.vercel.app/)
 
+### Admin Email: admin@admin.com
+### Admin Pasword: Admin@123
+
 ## Overview
 This is an Employee Management Dashboard web application that allows administrators to view and manage employee information, work hours, and perform various actions.
 
